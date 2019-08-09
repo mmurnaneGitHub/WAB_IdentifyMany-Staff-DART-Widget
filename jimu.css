@@ -56,7 +56,7 @@ td, th{
 .screen-readers-only-no-position {
   width: 1px;
   height: 1px;
-  margin: -1px;
+  margin: 0 -1px -1px -1px;
   padding: 0;
   border: 0;
   overflow: hidden;
@@ -68,7 +68,13 @@ td, th{
   position: absolute;
   left: -100px;
   top: -100px;
-  width: 1;
+  width: 1px;
+  height: 1px;
+}
+.jimu-rtl #trapLinkNode{
+  position: absolute;
+  left: unset;
+  right: -100px;
 }
 
 #skipContainer{
@@ -85,8 +91,8 @@ td, th{
 }
 #skipContainer a{
   position: absolute;
-  left: -100px;
-  top: -100px;
+  left: -1000px;
+  top: -1000px;
   padding: 0 20px;
   color: #333;
   background: #fff;
@@ -94,10 +100,13 @@ td, th{
   box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.5) !important;
 }
 #skipContainer a:focus{
-  left: 2px;
   top: 2px;
+  left: 2px;
 }
-
+.jimu-rtl #skipContainer a:focus{
+  left: auto;
+  right: 2px;
+}
 /* disable the blue color outline in chrome */
 *:focus{
   outline: none;
@@ -956,6 +965,9 @@ css for the dijits
   white-space: nowrap;
   text-overflow: clip;
 }
+.jimu-tab>.control>.tab:focus{
+  outline-offset: -2px !important;
+}
 .jimu-tab>.control>.tab.jimu-state-selected{
   background-color: #fff;
   border-top: 2px solid #8994a1;
@@ -1328,12 +1340,20 @@ css for the dijits
   top:5px;
   bottom: 5px;
 }
+
 .jimu-search .jimu-input{
   width: 100%;
   height: 100%;
   font-family: 'Avenir Light';
   font-size: 12px;
+  padding-right: 30px;
 }
+
+.jimu-rtl .jimu-search .jimu-input{
+  padding-right: 5px;
+  padding-left: 30px;
+}
+
 
 .jimu-search .search-btn{
   position:absolute;
@@ -2324,8 +2344,16 @@ widget:jimu-w
   white-space:nowrap;
 }
 
+.jimu-tab3 .tab-item-td:focus{
+  outline-offset: -2px !important;
+}
+
 .jimu-tab3.average .tab-item-td{
   padding: 0;
+}
+
+.jimu-tab3 .tab-item-td.tab-item-td-empty{
+  cursor: inherit;
 }
 
 .jimu-tab3 .tab-item-td.jimu-state-active{
@@ -2373,7 +2401,7 @@ widget:jimu-w
 
 .jimu-filter .content-section .match-msg{
   font-size: 12px;
-  margin: 10px;
+  padding: 0 10px 10px;
 }
 
 .jimu-filter .content-section .match-msg select,
@@ -2389,8 +2417,13 @@ widget:jimu-w
   overflow: hidden;
   position: relative;
   overflow: hidden;
-  margin: 10px 20px 0 10px;
+  padding: 10px 20px 10px 10px;
   font-family: Avenir Medium;
+}
+.jimu-filter .desktop-add-section::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 .jimu-filter .mobile-add-section{
   display: flex;
@@ -3877,6 +3910,13 @@ html.hr .jimu-filter .allExpsBox > div{
   max-width: 105px;
   flex-grow: 0;
   display: flex;
+  height: calc(100% - 4px);
+  margin-top: 2px;
+  margin-right: 2px;
+}
+.jimu-rtl .jimu-on-screen-widget-panel>.jimu-panel-title>.btns-container{
+  margin-right: 0;
+  margin-left: 2px;
 }
 .jimu-on-screen-widget-panel>.jimu-panel-title>.btns-container>.close-btn,
 .jimu-on-screen-widget-panel>.jimu-panel-title>.btns-container>.foldable-btn,
@@ -4774,6 +4814,7 @@ html.hr .jimu-filter .allExpsBox > div{
   background: url(images/more_normal.svg) no-repeat center;
   cursor: pointer;
 }
+
 .popup-menu-button:hover {
   background-color: #E5E5E5;
   -moz-border-radius:4px;
@@ -5159,6 +5200,10 @@ html.hr .jimu-filter .allExpsBox > div{
 .share-container .addMarker_moreOptions .dijitTextBox{
   display: block;
 }
+
+.share-container .url-toolong-tips{
+  color: #dd8f32
+}
 /* css for shareOptions end*/
 
 /* feature action icons*/
@@ -5337,10 +5382,14 @@ html.hr .jimu-filter .allExpsBox > div{
   font-size: 12px;
 }
 .stat-container .header{
+  margin-top: 2px;
   margin-bottom: 10px;
 }
 .stat-container .header>span{
   margin-right: 5px;
+}
+.stat-container .attrTable{
+  outline-offset: -2px !important;
 }
 .stat-container .attrName{
   color: #888888;
@@ -5532,6 +5581,7 @@ html.hr .jimu-filter .allExpsBox > div{
 /* item form style for feature action SaveAsHostedLayer */
 .jimu-item-form {
   width: 100%;
+  margin-top: 2px;
 }
 
 .jimu-item-form .input-label {
@@ -5663,8 +5713,111 @@ html.hr .jimu-filter .allExpsBox > div{
 }
 
 /* jimu-dijit-statistics-chart */
+
+/* a11y for statistics-chart */
+
+.jimu-dijit-statistics-chart .paging-section ul{
+  margin-left: 2px!important;
+}
+
+.jimu-rtl .jimu-dijit-statistics-chart .paging-section ul{
+  margin-left: 0!important;
+  margin-right: 2px!important;
+}
+
+.jimu-dijit-statistics-chart .zoomin{
+  margin-right: 2px!important;
+}
+
+.ie-gte-10 .jimu-dijit-statistics-chart .zoomin{
+  margin-right: 0!important;
+  margin-left: 2px!important;
+}
+
+.ie-gte-10 .jimu-dijit-statistics-chart .chart-section .description-container{
+  margin: 2px;
+}
+
+.jimu-dijit-statistics-chart .chart-section .left-arrow.arrow:focus,
+.jimu-dijit-statistics-chart .chart-section .right-arrow.arrow:focus,
+.jimu-dijit-statistics-chart .settings:focus,
+.jimu-dijit-statistics-chart .chart-section .description-container:focus,
+.jimu-dijit-statistics-chart .chart-title:focus {
+  outline-offset: -2px !important;
+}
+
+.jimu-dijit-statistics-chart .paging-section ul li a:focus,
+.jimu-dijit-statistics-chart .results-header .zoomin:focus {
+  outline-offset: -1px !important;
+}
+
+
+.ie-gte-10 .jimu-dijit-statistics-chart .chart-section .left-arrow {
+  width: 90%;
+  margin-left: 2px;
+}
+
+.jimu-rtl .ie-gte-10 .jimu-dijit-statistics-chart .chart-section .left-arrow {
+  width: 90%;
+  margin-right: 2px;
+}
+
+.ie-gte-10 .jimu-dijit-statistics-chart .chart-section .right-arrow {
+  width: 85%;
+  margin-right: 2px;
+}
+
+.jimu-rtl .ie-gte-10 .jimu-dijit-statistics-chart .chart-section .right-arrow {
+  width: 75%;
+  margin-left: 2px;
+}
+
+.ie-gte-10 .jimu-dijit-statistics-chart .chart-title {
+  width: 99%;
+  margin-top: 2px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.ie-gte-10 .jimu-dijit-statistics-chart .paging-section{
+  margin-left: 2px;
+}
+
+.ie-gte-10 .jimu-dijit-statistics-chart .settings {
+  margin-right: 2px;
+}
+
+.jimu-rtl .ie-gte-10 .jimu-dijit-statistics-chart .settings {
+  margin-left: 2px;
+}
+
+.ie-gte-10 .jimu-dijit-statistics-chart-settings .colorful-section {
+  margin-top: 2px;
+}
+
+.ie-gte-10 .jimu-dijit-statistics-chart-settings .monochromatic-section {
+  margin-bottom: 2px;
+}
+
+.ie-gte-10 .jimu-dijit-statistics-chart-settings .colorful-section,
+.ie-gte-10 .jimu-dijit-statistics-chart-settings .monochromatic-section {
+  margin-left: 2px;
+}
+
+.jimu-rtl .ie-gte-10 .jimu-dijit-statistics-chart-settings .colorful-section,
+.jimu-rtl .ie-gte-10 .jimu-dijit-statistics-chart-settings .monochromatic-section {
+  margin-left: 0;
+  margin-right: 2px;
+}
+
+/* a11y for statistics-chart end */
+
 .jimu-dijit-statistics-chart{
   position: relative;
+}
+
+body:not(.ie-gte-10) .jimu-dijit-statistics-chart{
+  height: 100%!important;
 }
 
 .jimu-dijit-statistics-chart .results-header{
@@ -5677,20 +5830,12 @@ html.hr .jimu-filter .allExpsBox > div{
   display: block;
 }
 
-.jimu-dijit-statistics-chart .results-header .zoomin:focus {
-  outline-offset: -1px;
-}
-
 .jimu-dijit-statistics-chart .chart-title{
   text-align: center;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.jimu-dijit-statistics-chart .chart-title:focus {
-  outline-offset: -2px !important;
 }
 
 .jimu-dijit-statistics-chart .paging-section{
@@ -5725,10 +5870,6 @@ html.hr .jimu-filter .allExpsBox > div{
   cursor: pointer;
 }
 
-.jimu-dijit-statistics-chart .paging-section ul li a:focus {
-  outline-offset: -1px !important;
-}
-
 .jimu-dijit-statistics-chart .paging-section ul li a:hover,.jimu-dijit-statistics-chart .paging-section ul li.selected a{
   background-image:url(images/dot2.png);
 }
@@ -5753,14 +5894,12 @@ html.hr .jimu-filter .allExpsBox > div{
   margin-right: 5px;
 }
 
+
+
 .jimu-dijit-statistics-chart .chart-section{
   position: relative;
   width: 100%;
-}
-
-.jimu-dijit-statistics-chart .chart-section .left-arrow.arrow:focus,
-.jimu-dijit-statistics-chart .chart-section .right-arrow.arrow:focus {
-  outline-offset: -2px !important;
+  height: calc(100% - 48px);
 }
 
 .jimu-dijit-statistics-chart .chart-section.render-faild .chart-container {
@@ -5818,6 +5957,50 @@ html.hr .jimu-filter .allExpsBox > div{
   width:100%;
   margin:0 auto;
   overflow: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.jimu-dijit-statistics-chart .chart-section .chart-container{
+  width:100%;
+  margin:0 auto;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ie-gte-10 .jimu-dijit-statistics-chart .chart-section .chart-container{
+  overflow: hidden;
+}
+
+.jimu-dijit-statistics-chart .chart-section .chart-container .chart-real-container {
+  width:100%;
+  height: 75%;
+  flex-shrink: 1;
+  flex-grow: 1;
+}
+
+.jimu-dijit-statistics-chart .chart-section .chart-container .description-container {
+  width:100%;
+  max-height: 25%;
+  flex-shrink: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  word-break: break-word;
+  min-height: 15px;
+  font-family: Avenir Light;
+  font-size: 12px;
+  line-height: 18px;
+  margin-top: 10px;
+  padding: 0 5px;
+}
+
+.ie-gte-10 .jimu-dijit-statistics-chart .chart-section .chart-container .description-container {
+  word-break: break-all!important;
+  width: 98%;
 }
 
 .jimu-dijit-statistics-chart .chart-section .right-arrow{
@@ -5998,7 +6181,7 @@ html.hr .jimu-filter .allExpsBox > div{
   z-index: 200;
   animation: containerOut 300ms;
   -moz-animation: containerOut 300ms;	/* Firefox */
-  -webkit-animation: containerOut 300ms;	/* Safari sÃ†Ã® Chrome */
+  -webkit-animation: containerOut 300ms;	/* Safari s’Œ Chrome */
   -o-animation: containerOut 300ms;	/* Opera */
   animation-delay: -300ms;
   -moz-animation-delay: -300ms;
@@ -6015,7 +6198,7 @@ html.hr .jimu-filter .allExpsBox > div{
   left: auto;
   animation: containerOutRTL 300ms;
   -moz-animation: containerOutRTL 300ms;	/* Firefox */
-  -webkit-animation: containerOutRTL 300ms;	/* Safari sÃ†Ã® Chrome */
+  -webkit-animation: containerOutRTL 300ms;	/* Safari s’Œ Chrome */
   -o-animation: containerOutRTL 300ms;	/* Opera */
   animation-delay: -300ms;
   -moz-animation-delay: -300ms;
@@ -6040,14 +6223,14 @@ html.hr .jimu-filter .allExpsBox > div{
 .jimu-dnd-mobile-controller .container-section.in {
   animation: containerIn 300ms;
   -moz-animation: containerIn 300ms;	/* Firefox */
-  -webkit-animation: containerIn 300ms;	/* Safari sÃ†Ã® Chrome */
+  -webkit-animation: containerIn 300ms;	/* Safari s’Œ Chrome */
   -o-animation: containerIn 300ms;	/* Opera */
 }
 
 .jimu-rtl .jimu-dnd-mobile-controller .container-section.in {
   animation: containerInRTL 300ms;
   -moz-animation: containerInRTL 300ms;	/* Firefox */
-  -webkit-animation: containerInRTL 300ms;	/* Safari sÃ†Ã® Chrome */
+  -webkit-animation: containerInRTL 300ms;	/* Safari s’Œ Chrome */
   -o-animation: containerInRTL 300ms;	/* Opera */
 }
 
@@ -6062,7 +6245,7 @@ html.hr .jimu-filter .allExpsBox > div{
   to {left: -10px;}
 }
 
-@-webkit-keyframes containerIn  /* Safari sÃ†Ã® Chrome */
+@-webkit-keyframes containerIn  /* Safari s’Œ Chrome */
 {
   from {left: -170px;}
   to {left: -10px;}
@@ -6085,7 +6268,7 @@ html.hr .jimu-filter .allExpsBox > div{
   to {right: -10px;}
 }
 
-@-webkit-keyframes containerInRTL  /* Safari sÃ†Ã® Chrome */
+@-webkit-keyframes containerInRTL  /* Safari s’Œ Chrome */
 {
   from {right: -170px;}
   to {right: -10px;}
@@ -6108,7 +6291,7 @@ html.hr .jimu-filter .allExpsBox > div{
   to {left: -170px;}
 }
 
-@-webkit-keyframes containerOut  /* Safari sÃ†Ã® Chrome */
+@-webkit-keyframes containerOut  /* Safari s’Œ Chrome */
 {
   from {left: -10px;}
   to {left: -170px;}
@@ -6131,7 +6314,7 @@ html.hr .jimu-filter .allExpsBox > div{
   to {right: -170px;}
 }
 
-@-webkit-keyframes containerOutRTL  /* Safari sÃ†Ã® Chrome */
+@-webkit-keyframes containerOutRTL  /* Safari s’Œ Chrome */
 {
   from {right: -10px;}
   to {right: -170px;}
@@ -7037,12 +7220,15 @@ html.hr .jimu-filter .allExpsBox > div{
   padding-left: 0;
   padding-right: 10px;
 }
+.jimu-multiple-items-list .item.active .checkbox{
+  background-image: url(images/checkbox_hover.png);
+}
 .jimu-multiple-items-list .item .checkbox.checked{
   background-image: url(images/checked_default.png);
 }
 .jimu-multiple-items-list .item .radio{
   width: 20px;
-  height: 16px;
+  height: 20px;
   /* vertical-align: middle; */
   background-image: url(images/radioBtn_normal.svg);
   background-repeat: no-repeat;
@@ -7050,6 +7236,9 @@ html.hr .jimu-filter .allExpsBox > div{
   display: none; /*hide radio in UI for setting*/
   /* margin-left: 10px;
   margin-right: 10px; */
+}
+.jimu-multiple-items-list .item.active .radio{
+  background-image: url(images/radioBtn_hover.png);
 }
 .jimu-multiple-items-list .item .radio.checked{
   background-image: url(images/radioBtn_selected.svg);
@@ -7113,6 +7302,7 @@ html.hr .jimu-filter .allExpsBox > div{
   background: #f3f3f3;
 }
 .jimu-multiple-items-expanded-list .item {
+  line-height: 27px;
   padding: 3px 5px;
   margin: 0 auto;
   margin-bottom: 5px;
@@ -7300,6 +7490,7 @@ html.hr .jimu-filter .allExpsBox > div{
 }
 .jimu-list-multiple-select .items-content .item {
   /* border-bottom: 1px solid #d9dde0; */
+  outline-offset: -2px !important;
 }
 .jimu-list-multiple-select .items-content .item.emptyItem{
   color: #666;
@@ -7531,4 +7722,13 @@ html.hr .jimu-filter .allExpsBox > div{
 }
 .jimu-colorTransparencyPicker .sliderbar {
 	width: 80px;
+}
+
+/* main-loading */
+#main-loading.loading-fadeOut {
+  animation: 1.5s main-loading-fadeOut-anim;
+}
+@keyframes main-loading-fadeOut-anim {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
 }
