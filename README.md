@@ -1,7 +1,7 @@
 ## WAB_IdentifyMany-Staff-DART-Widget
 Staff DART Identify Widget. Control button size and image margin with jimu.css. 
 
-Version 2.12
+Version 2.13
 
 INSTRUCTIONS:
 1. Copy folder IdentifyMany to \widgets\IdentifyMany
