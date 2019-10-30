@@ -64,14 +64,14 @@ td, th{
   clip-path: inset(50%);
   word-wrap: normal !important;
 }
-#trapLinkNode{
+.trapLinkNode{
   position: absolute;
   left: -100px;
   top: -100px;
   width: 1px;
   height: 1px;
 }
-.jimu-rtl #trapLinkNode{
+.jimu-rtl .trapLinkNode{
   position: absolute;
   left: unset;
   right: -100px;
@@ -1811,6 +1811,14 @@ widget:jimu-w
   display:none;
 }
 
+.jimu-symbol-chooser .symbol-section.fill-symbol-section .arrowWidthTr{
+  display: none;
+}
+
+.jimu-symbol-chooser .symbol-section.arrow-symbol-section .arrowWidthTr{
+  display: table-row;
+}
+
 .jimu-symbol-chooser .symbol-set-table{
   width:100%;
   border-collapse:collapse;
@@ -2732,13 +2740,49 @@ html.hr .jimu-filter .allExpsBox > div{
   display: none;
 }
 
-.jimu-single-filter .cascade-tr{
+.jimu-single-filter .cascade-tr,
+.jimu-single-filter .relative-start-date-tr,
+.jimu-single-filter .relative-end-date-tr{
   display: none;
 }
 
-.jimu-single-filter.unique-type.support-cascade .cascade-tr{
+.jimu-single-filter.unique-type.support-cascade .cascade-tr,
+.jimu-single-filter.value-type.support-relative-start-date .relative-start-date-tr,
+.jimu-single-filter.value-type.support-relative-end-date .relative-end-date-tr{
   display: table-row;
 }
+
+.jimu-single-filter.value-type.support-relative-start-date .relative-start-date-tr .showItems,
+.jimu-single-filter.value-type.support-relative-end-date .relative-end-date-tr .showItems{
+  display: inline-block;
+  margin-left: 10px;
+  line-height: 30px;
+  font-size: 14px;
+}
+
+.jimu-rtl .jimu-single-filter.value-type.support-relative-start-date .relative-start-date-tr .showItems,
+.jimu-rtl .jimu-single-filter.value-type.support-relative-end-date .relative-end-date-tr .showItems{
+  margin-left: 0;
+  margin-right: 10px;
+}
+
+.jimu-single-filter.value-type.support-relative-start-date .relative-start-date-tr .showItems:first-child,
+.jimu-single-filter.value-type.support-relative-end-date .relative-end-date-tr .showItems:first-child{
+  margin-left: 0;
+}
+
+.jimu-rtl .jimu-single-filter.value-type.support-relative-start-date .relative-start-date-tr .showItems:first-child,
+.jimu-rtl .jimu-single-filter.value-type.support-relative-end-date .relative-end-date-tr .showItems:first-child{
+  margin-right: 0;
+}
+
+.jimu-single-filter.value-type.support-relative-start-date .relative-start-date-tr .showItems .jimu-checkbox,
+.jimu-single-filter.value-type.support-relative-start-date .relative-start-date-tr .showItems > span,
+.jimu-single-filter.value-type.support-relative-end-date .relative-end-date-tr .showItems .jimu-checkbox,
+.jimu-single-filter.value-type.support-relative-end-date .relative-end-date-tr .showItems > span {
+  vertical-align: middle;
+}
+
 
 .jimu-filter-valueTypePopup .value-type-popup{
   background: #FFFFFF;
@@ -3904,6 +3948,10 @@ html.hr .jimu-filter .allExpsBox > div{
   /* width: 66%; */
   flex-grow: 1;
   padding: 0 10px;
+  margin: 0;
+}
+.jimu-on-screen-widget-panel>.jimu-panel-title>.title-label:focus{
+  outline: none !important;
 }
 .jimu-on-screen-widget-panel>.jimu-panel-title>.btns-container{
   min-width: 35px;
@@ -6181,7 +6229,7 @@ body:not(.ie-gte-10) .jimu-dijit-statistics-chart{
   z-index: 200;
   animation: containerOut 300ms;
   -moz-animation: containerOut 300ms;	/* Firefox */
-  -webkit-animation: containerOut 300ms;	/* Safari sÃ†Ã® Chrome */
+  -webkit-animation: containerOut 300ms;	/* Safari s’Œ Chrome */
   -o-animation: containerOut 300ms;	/* Opera */
   animation-delay: -300ms;
   -moz-animation-delay: -300ms;
@@ -6198,7 +6246,7 @@ body:not(.ie-gte-10) .jimu-dijit-statistics-chart{
   left: auto;
   animation: containerOutRTL 300ms;
   -moz-animation: containerOutRTL 300ms;	/* Firefox */
-  -webkit-animation: containerOutRTL 300ms;	/* Safari sÃ†Ã® Chrome */
+  -webkit-animation: containerOutRTL 300ms;	/* Safari s’Œ Chrome */
   -o-animation: containerOutRTL 300ms;	/* Opera */
   animation-delay: -300ms;
   -moz-animation-delay: -300ms;
@@ -6223,14 +6271,14 @@ body:not(.ie-gte-10) .jimu-dijit-statistics-chart{
 .jimu-dnd-mobile-controller .container-section.in {
   animation: containerIn 300ms;
   -moz-animation: containerIn 300ms;	/* Firefox */
-  -webkit-animation: containerIn 300ms;	/* Safari sÃ†Ã® Chrome */
+  -webkit-animation: containerIn 300ms;	/* Safari s’Œ Chrome */
   -o-animation: containerIn 300ms;	/* Opera */
 }
 
 .jimu-rtl .jimu-dnd-mobile-controller .container-section.in {
   animation: containerInRTL 300ms;
   -moz-animation: containerInRTL 300ms;	/* Firefox */
-  -webkit-animation: containerInRTL 300ms;	/* Safari sÃ†Ã® Chrome */
+  -webkit-animation: containerInRTL 300ms;	/* Safari s’Œ Chrome */
   -o-animation: containerInRTL 300ms;	/* Opera */
 }
 
@@ -6245,7 +6293,7 @@ body:not(.ie-gte-10) .jimu-dijit-statistics-chart{
   to {left: -10px;}
 }
 
-@-webkit-keyframes containerIn  /* Safari sÃ†Ã® Chrome */
+@-webkit-keyframes containerIn  /* Safari s’Œ Chrome */
 {
   from {left: -170px;}
   to {left: -10px;}
@@ -6268,7 +6316,7 @@ body:not(.ie-gte-10) .jimu-dijit-statistics-chart{
   to {right: -10px;}
 }
 
-@-webkit-keyframes containerInRTL  /* Safari sÃ†Ã® Chrome */
+@-webkit-keyframes containerInRTL  /* Safari s’Œ Chrome */
 {
   from {right: -170px;}
   to {right: -10px;}
@@ -6291,7 +6339,7 @@ body:not(.ie-gte-10) .jimu-dijit-statistics-chart{
   to {left: -170px;}
 }
 
-@-webkit-keyframes containerOut  /* Safari sÃ†Ã® Chrome */
+@-webkit-keyframes containerOut  /* Safari s’Œ Chrome */
 {
   from {left: -10px;}
   to {left: -170px;}
@@ -6314,7 +6362,7 @@ body:not(.ie-gte-10) .jimu-dijit-statistics-chart{
   to {right: -170px;}
 }
 
-@-webkit-keyframes containerOutRTL  /* Safari sÃ†Ã® Chrome */
+@-webkit-keyframes containerOutRTL  /* Safari s’Œ Chrome */
 {
   from {right: -10px;}
   to {right: -170px;}
