@@ -34,7 +34,7 @@ define(['dojo/_base/declare',
 
     return declare([BaseWidget, _WidgetsInTemplateMixin], {
       tabContainer: null,
-      baseClass: 'jimu-widget-identifyMany', //name
+      baseClass: 'jimu-widget-IdentifyManyStaffDART', //name
       mapClick: null,
 
       postCreate: function() {
