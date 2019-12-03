@@ -84,8 +84,6 @@ define(['dojo/_base/declare',
           new Color([0, 0, 255, 0.25]));
 
         //Point-to-inside-buffer-parcel functions within pointToExtent 
-        //queryTaskParcelGeometry = new QueryTask("https://" + webserver2 + "/arcgis/rest/services/" + folder1 + "/DARTparcels_PUBLIC/MapServer/3"); //Base Parcel - don't use condo boundaries
-        //10/8/2019
         queryTaskParcelGeometry = new QueryTask("https://arcgisprod02.tacoma.lcl/arcgis/rest/services/PDS/DARTparcels_STAFF/MapServer/4"); //Base Parcel - don't use condo boundaries
         queryParcelGeometry = new Query();
         queryParcelGeometry.outFields = ["TaxParcelNumber"]; //to use for querying buildings
@@ -94,10 +92,7 @@ define(['dojo/_base/declare',
         //--end Setup for parcel geometry query
 
         //Query buildings setup
-        // Update 10/4/19
-        //queryBuildingTask = new QueryTask("https://arcgisdev02.tacoma.lcl/arcgis/rest/services/PDS_Staff/DARTquery_WAB_STAFF/MapServer/26");  //TEST!! REMOVE THIS LINE AND USE THE ONE BELOW AssessorImprovement table
         queryBuildingTask = new QueryTask("https://" + webserver1 + "/arcgis/rest/services/" + folder1 + "/DARTquery_WAB_STAFF/MapServer/26"); //AssessorImprovement table
-        //queryBuildingTask = new QueryTask("https://" + webserver1 + "/rest/services/" + folder1 + "/DARTquery_WAB_PUBLIC/MapServer/26");  //PUBLIC FIX!!! - AssessorImprovement table  
         queryBuilding = new Query();
         queryBuilding.returnGeometry = false;
         //You must use the actual field names rather than the alias names, but you can use the alias names later when you display the results.
@@ -106,8 +101,7 @@ define(['dojo/_base/declare',
         //End query buildings setup
 
         //Buffer parcel setup
-        //---Geometry Service - may need proxy for larger polys - see add data widget
-        gsvc = new GeometryService("https://" + webserver2 + "/arcgis/rest/services/Utilities/Geometry/GeometryServer");
+        gsvc = new GeometryService("https://" + webserver2 + "/arcgis/rest/services/Utilities/Geometry/GeometryServer");  //---Geometry Service - may need proxy for larger polys - see add data widget
         paramsBuffer = new BufferParameters();
         paramsBuffer.distances = [-2]; //inside buffer   - fix for narrow parcels like 5003642450
         paramsBuffer.bufferSpatialReference = new esri.SpatialReference({
@@ -117,15 +111,10 @@ define(['dojo/_base/declare',
         paramsBuffer.unit = esri.tasks.GeometryService["UNIT_FOOT"];
         //---end Geometry Service - for buffer
 
-        //Identify parameters for current map state
-        //Web services for identify
-        //START HERE WITH USING DEV SITE test update 10/4/19
-        //identifyTask = new IdentifyTask("https://arcgisdev02.tacoma.lcl/arcgis/rest/services/PDS_Staff/DARTquery_WAB_STAFF/MapServer");  //TEST!! REMOVE THIS LINE AND USE THE ONE BELOW All other layers
+        //Identify parameters for current map state  - Web services for identify
         identifyTask = new IdentifyTask("https://" + webserver1 + "/arcgis/rest/services/" + folder1 + "/DARTquery_WAB_STAFF/MapServer"); //All other layers
-        //identifyTask = new IdentifyTask("https://" + webserver1 + "/rest/services/" + folder1 + "/DARTquery_WAB_PUBLIC/MapServer");  //PUBLIC FIX!!! - All other layers - processed with _processIdentifyResults
         identifyParams = new IdentifyParameters();
         identifyParams.returnGeometry = true;
-        // Update 10/4/19
         identifyParams.layerIds = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]; //layers to query for identify popup (query layers)
         //identifyParams.layerIds = ['*'];  //Query all layers for identify popup (query layers) - Non-spatial Improvement table (26) causes problem
         identifyParams.layerOption = IdentifyParameters.LAYER_OPTION_VISIBLE; //identify just visible layers - based on min/max scale
@@ -149,12 +138,10 @@ define(['dojo/_base/declare',
         // end identify Soil
 
         //Identify Storm (SurfacewaterNetwork) 
-        identifyTaskStorm = new IdentifyTask("https://esgis01/arcgis/rest/services/Base/SurfacewaterNetwork/MapServer"); //storm
-        //identifyTaskStorm = new IdentifyTask("https://gis.cityoftacoma.org/arcgis/rest/services/PDS/DARTsewer/MapServer");  //storm - PUBLIC FIX!!
+        identifyTaskStorm = new IdentifyTask("https://arcgisprod02/arcgis/rest/services/ES/SurfacewaterNetwork_Internal/MapServer"); 
         identifyParamsStorm = new IdentifyParameters();
         identifyParamsStorm.returnGeometry = true; //need for highlighting
         identifyParamsStorm.layerIds = [66, 64, 62, 65, 14, 92, 181, 298, 180, 299, 300, 94, 301, 96, 97, 95, 11, 98, 324, 25, 132, 310, 316, 206, 207, 208, 209, 12, 210, 197, 10, 198, 306]; //layer folders to query (All) - Use bullet folder numbers when subfolders are used (not layer numbers)
-        //identifyParamsStorm.layerIds = [0,1,2,3];  //PUBLIC FIX!! - layer folders to query (All) - Use bullet folder numbers when subfolders are used (not layer numbers)
         identifyParamsStorm.layerOption = IdentifyParameters.LAYER_OPTION_VISIBLE; //identify just visible layers
         identifyParamsStorm.width = myMapWidth;
         identifyParamsStorm.height = myMapHeight;
@@ -164,12 +151,10 @@ define(['dojo/_base/declare',
         // end identify Storm
 
         //Identify Sewer (WastewaterNetwork) 
-        identifyTaskSewer = new IdentifyTask("https://esgis01/arcgis/rest/services/Base/WastewaterNetwork/MapServer"); //sewer
-        //identifyTaskSewer = new IdentifyTask("https://gis.cityoftacoma.org/arcgis/rest/services/PDS/DARTsewer/MapServer");  //PUBLIC FIX!! - sewer
+        identifyTaskSewer = new IdentifyTask("https://arcgisprod02/arcgis/rest/services/ES/WastewaterNetwork_Internal/MapServer"); //sewer
         identifyParamsSewer = new IdentifyParameters();
         identifyParamsSewer.returnGeometry = true; //need for highlighting
         identifyParamsSewer.layerIds = [66, 64, 63, 65, 1, 126, 157, 162, 20, 21, 118, 212, 116, 115, 117, 2, 125, 165, 159, 22, 23, 179, 180, 181, 182, 3, 183, 187, 188, 27]; //layer folders to query (All) - Use bullet folder numbers when subfolders are used (not layer numbers)
-        //identifyParamsSewer.layerIds = [4,5,6,7];  //layer folders to query (All) - Use bullet folder numbers when subfolders are used (not layer numbers)
         identifyParamsSewer.layerOption = IdentifyParameters.LAYER_OPTION_VISIBLE; //identify just visible layers
         identifyParamsSewer.width = myMapWidth;
         identifyParamsSewer.height = myMapHeight;
